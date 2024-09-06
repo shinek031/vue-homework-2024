@@ -45,10 +45,11 @@
   </form>
 </template>
 <script setup>
+import { SignUpUrl } from '@/stores/Api.js';
 import { RouterView } from 'vue-router'
 import { RouterLink, useRouter } from 'vue-router'
 import axios from 'axios'
-const ApiUrl = 'https://todolist-api.hexschool.io'
+// const ApiUrl = 'https://todolist-api.hexschool.io'
 import { ref } from 'vue'
 const router = useRouter()
 const signdata = ref({
@@ -60,18 +61,23 @@ const signdata = ref({
 const sign_up = async () => {
   if (signdata.value.email == '') {
     alert('Please enter email')
+    return;
   }
   if (signdata.value.name == '') {
     alert('Please enter name')
+    return;
   }
   if (signdata.value.pwd == '') {
     alert('Please enter password')
+    return;
   }
   if (signdata.value.repwd == '') {
     alert('Please enter repassword')
+    return;
   }
   if (signdata.value.pwd != signdata.value.repwd) {
     alert('密碼輸入不一致')
+    return;
   }
   const data = {
     email: signdata.value.email,
@@ -79,11 +85,11 @@ const sign_up = async () => {
     nickname: signdata.value.name
   }
   try {
-    const res = await axios.post(`${ApiUrl}/users/sign_up`, data)
+    const res = await axios.post(`${SignUpUrl}`, data)
     // console.log(res)
     if (res.data.status) {
       alert('註冊成功')
-      router.push('singin')
+      router.push('/')
     } else {
       alert(res.data.message)
     }

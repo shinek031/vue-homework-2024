@@ -30,8 +30,9 @@
 </template>
 <script setup>
 import { RouterLink, useRouter } from 'vue-router'
+import { SignInUrl } from '@/stores/Api.js';
 import axios from 'axios'
-const ApiUrl = 'https://todolist-api.hexschool.io'
+// const ApiUrl = 'https://todolist-api.hexschool.io'
 import { ref } from 'vue'
 const router = useRouter()
 // const  cookies  = VueCookies();
@@ -51,7 +52,7 @@ const lonin = async () => {
     password: signdata.value.pwd
   }
   try {
-    const res = await axios.post(`${ApiUrl}/users/sign_in`, data)
+    const res = await axios.post(`${SignInUrl}`, data)
     console.log(res)
     if (res.data.status) {
       const now = new Date();
